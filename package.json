@@ -1,0 +1,18 @@
+{
+  "name": "genshin-dmg-calculator",
+  "version": "0.1",
+  "scripts": {
+    "build": "npx tsc",
+    "watch": "npx tsc --watch",
+    "start": "node dist/app.js",
+    "lockfile-update": "npm i --package-lock-only"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "@types/jquery": "^3.5.32",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}

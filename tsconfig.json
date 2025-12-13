@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2023", // Targeting ES6 for wide browser compatibility
+    "module": "ESNext", // Use ESNext modules for imports/exports
+    "moduleResolution": "Node", // Use Node-style module resolution (helps with imports)
+    "outDir": "./dist", // Output directory for compiled JavaScript files
+    "sourceMap": true, // Generate source maps for debugging
+    "allowJs": true, // Allow JavaScript files
+    "skipLibCheck": true, // Skip library type checking
+    "checkJs": true,
+    "strict": true
+  },
+  "include": [
+    "src/**/*" // Include all TypeScript files from 'src'
+  ]
+}
