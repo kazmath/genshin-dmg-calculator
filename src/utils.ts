@@ -42,3 +42,6 @@ export function multArray(inputArray: number[]) {
         ? 0
         : inputArray.reduce((prevValue, currValue) => prevValue * currValue, 1);
 }
+export function $(selector: string) {
+    return document.querySelectorAll(selector);
+}

@@ -2,12 +2,18 @@ import { Character } from "./types";
 import { HakushinCharacter } from "./types/hakushinTypes";
 import { RangeNum } from "./types/helperTypes";
 import { AttributeName } from "./types/otherTypes";
-import { baseApiURL, normalize } from "./utils.js";
+import { $, baseApiURL, normalize } from "./utils.js";
+
+main();
+
+function main() {
+    $("#btn-start-calc")[0].addEventListener("click", inputAndCalc);
+}
 
 function inputAndCalc() {
     const characterID = prompt("Enter characterID")!;
 
-    console.log(fetchCharacter(characterID));
+    fetchCharacter(characterID).then((e) => console.log(e));
 }
 
 async function fetchCharacter(
@@ -197,47 +203,48 @@ async function fetchCharacter(
                     parameters: e.Passives[3].ParamList,
                 };
             }
+            return character;
         });
-}
 
-function extractTalentParams(
-    descs: string[],
-    params: number[]
-): { [key: string]: string } {
-    return descs
-        .filter((value) => value.length > 0)
-        .reduce<{
-            [key: string]: string;
-        }>((prev, curr): { descMV: string } => {
-            const [descMV, paramMV] = curr.split("|");
+    function extractTalentParams(
+        descs: string[],
+        params: number[]
+    ): { [key: string]: string } {
+        const output: Array<[string, string]> = descs
+            .filter((value) => value.length > 0)
+            .reduce<Array<[string, string]>>((prev, curr) => {
+                const [descMV, paramMV] = curr.split("|");
 
-            paramMV.replaceAll(
-                /\{([^{}:]*):([^{}:]*)\}/g,
-                (_, param: string, modifier: string) => {
-                    const paramIndex = Number(param.replace(/^param/, "")) - 1;
-                    let paramValue: number = params[paramIndex];
+                const paramMV_treated = paramMV.replaceAll(
+                    /\{([^{}:]*):([^{}:]*)\}/g,
+                    (_, param: string, modifier: string) => {
+                        const paramIndex =
+                            Number(param.replace(/^param/, "")) - 1;
+                        let paramValue: number = params[paramIndex];
 
-                    const modifiers = {
-                        isPercent: modifier.toLowerCase().includes("p"),
-                        isFloat: modifier.toLowerCase().includes("f"),
-                        decimalPlaces: Number(
-                            (modifier.match(/[1-9]/) ?? ["0"])[0]
-                        ),
-                    };
+                        const modifiers = {
+                            isPercent: modifier.toLowerCase().includes("p"),
+                            isFloat: modifier.toLowerCase().includes("f"),
+                            decimalPlaces: Number(
+                                (modifier.match(/[1-9]/) ?? ["0"])[0]
+                            ),
+                        };
 
-                    paramValue *= modifiers.isPercent ? 100 : 1;
+                        paramValue *= modifiers.isPercent ? 100 : 1;
 
-                    let output = modifiers.isFloat
-                        ? paramValue.toFixed(modifiers.decimalPlaces)
-                        : paramValue.toFixed(0);
-                    output += modifiers.isPercent ? "%" : "";
+                        let output = modifiers.isFloat
+                            ? paramValue.toFixed(modifiers.decimalPlaces)
+                            : paramValue.toFixed(0);
+                        output += modifiers.isPercent ? "%" : "";
 
-                    return output;
-                }
-            );
+                        return output;
+                    }
+                );
 
-            return { descMV: paramMV };
-        }, {});
+                return [...prev, [descMV, paramMV_treated]];
+            }, []);
+        return Object.fromEntries(output);
+    }
 }
 
 function getEnemyStats() {
