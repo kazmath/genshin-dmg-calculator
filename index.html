@@ -20,15 +20,49 @@
     </head>
 
     <body>
-        <header>
-            <!-- place navbar here -->
+        <header class="bg-secondary mb-2" style="height: 8vh;">
+            <nav class="navbar navbar-expand navbar-light bg-light">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" aria-current="page"
+                            >Nav 1 <span class="visually-hidden">(current)</span></a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Nav 2</a>
+                    </li>
+                </ul>
+            </nav>
+
+
         </header>
-        <main>
-            <div class="d-grid gap-2">
-                <button type="button" name="btn-start-calc" id="btn-start-calc" class="btn btn-primary">
-                    Start
-                </button>
+        <main class="vw-100" style="height: 90vh;">
+
+            <div class="col h-75 mx-2 d-flex justify-content-center gap-3">
+                <div class="col bg-primary">
+                    test
+                </div>
+                <div class="col bg-primary">
+                    test
+                </div>
+                <div class="col bg-primary">
+                    test
+                </div>
+                <div class="col bg-primary">
+                    test
+                </div>
+
             </div>
+
+            <div class="col h-25 mx-2 d-flex justify-content-center gap-5">
+                <div class="w-25 h-100 bg-primary">Column1</div>
+
+                <div class="w-25 h-100 bg-primary">Column2</div>
+            </div>
+            <!-- <div class="d-flex bg-primary h-100 flex-column">
+                <div class="p-2 flex-grow-1 h-90">Flex item 1</div>
+                <div class="p-2 flex-grow-1 h-20">Flex item 2</div>
+            </div> -->
 
         </main>
         <footer>

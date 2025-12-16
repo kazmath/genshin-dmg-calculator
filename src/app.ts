@@ -5,7 +5,7 @@ import {
     HakushinCharacter,
     RangeNum,
 } from "./types";
-import { $, baseApiURL, normalize, takeUntil } from "./utils.js";
+import { baseApiURL, normalize, takeUntil } from "./utils.js";
 
 const characterSlots: [
     CharacterStats?,
@@ -17,7 +17,7 @@ const characterSlots: [
 main();
 
 function main() {
-    $("#btn-start-calc")[0].addEventListener("click", inputAndCalc);
+    // $("#btn-start-calc")[0].addEventListener("click", inputAndCalc);
 }
 
 function inputAndCalc() {
