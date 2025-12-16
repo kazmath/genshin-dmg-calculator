@@ -1,59 +1,14 @@
-import { RangeNum } from "./helperTypes";
-import { AttributeName, ElementName } from "./otherTypes";
+import { ArtifactSet, Character, Weapon } from "./CharacterTypes";
+import { RangeNum } from "./HelperTypes";
+import { ElementName } from "./OtherTypes";
 
-type Talent = {
-    name: string;
-    description: string;
-    parameters: { [key: string]: string };
-};
-
-type Passive = {
-    name: string;
-    description: string;
-    parameters?: number[];
-};
-
-type Constellation =
-    | {
-          name: string;
-          description: string;
-          upgradedTalent: Talent;
-      }
-    | {
-          name: string;
-          description: string;
-          parameters?: number[];
-      };
-
-export type Character = {
-    name: string;
-    id: string;
-    rank: 4 | 5;
-    element: ElementName;
-    base_hp: number;
-    base_atk: number;
-    base_def: number;
-    asc_stat: AttributeName;
-    asc_stat_value: number;
-    normal: Talent;
-    skill: Talent;
-    burst: Talent;
-    a1_passive: Passive;
-    a4_passive: Passive;
-    util_passive: Passive;
-    special_passive?: Passive;
-    constellations: {
-        "1": Constellation;
-        "2": Constellation;
-        "3": Constellation;
-        "4": Constellation;
-        "5": Constellation;
-        "6": Constellation;
-    };
-};
+export * from "./CharacterTypes";
+export * from "./HakushinTypes";
+export * from "./HelperTypes";
+export * from "./OtherTypes";
 
 export type Enemy = {
-    level: RangeNum<1, 111>;
+    level: RangeNum<1, 121>;
     res: number;
     resAnemo: number;
     resCryo: number;
@@ -63,4 +18,60 @@ export type Enemy = {
     resHydro: number;
     resPyro: number;
     resPhysical: number;
+};
+
+export interface CharacterStats extends Stats {
+    character: Character;
+    weapon: Weapon;
+    artifacts: {
+        sets: ArtifactSet[];
+        mainStats: {
+            sands:
+                | "HP"
+                | "ATK"
+                | "DEF"
+                | "EM" //
+                | "ER";
+            goblet:
+                | "HP"
+                | "ATK"
+                | "DEF"
+                | "EM"
+                | "DMG" //
+                | "Phys";
+            circlet:
+                | "HP"
+                | "ATK"
+                | "DEF"
+                | "EM"
+                | "CRIT Rate"
+                | "CRIT DMG" //
+                | "Healing Bonus";
+        };
+        subStats: {
+            HP_: RangeNum<0, 46>;
+            HP: RangeNum<0, 46>;
+            ATK_: RangeNum<0, 46>;
+            ATK: RangeNum<0, 46>;
+            DEF_: RangeNum<0, 46>;
+            DEF: RangeNum<0, 46>;
+            EM: RangeNum<0, 46>;
+            CRITRate: RangeNum<0, 46>;
+            CRITDMG: RangeNum<0, 46>;
+            ER: RangeNum<0, 46>;
+        };
+    };
+}
+
+export type Stats = {
+    HP: number;
+    ATK: number;
+    DEF: number;
+    EM: number;
+    CritRate: number;
+    CritDMG: number;
+    ER: number;
+    HealingBonus: number;
+    DMGBonus: { [element in ElementName | "Physical"]: number };
+    RESShred: { [element in ElementName | "Physical"]: number };
 };

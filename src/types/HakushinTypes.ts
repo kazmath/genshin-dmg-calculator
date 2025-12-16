@@ -1,5 +1,5 @@
-import { RangeNum } from "./helperTypes";
-import { AttributeName, ElementName, WeaponType } from "./otherTypes";
+import { RangeNum } from "./HelperTypes";
+import { AttributeName, ElementName, WeaponType } from "./OtherTypes";
 
 type HakushinRank = "QUALITY_PURPLE" | "QUALITY_ORANGE";
 
@@ -47,11 +47,15 @@ export type HakushinCharacter = {
     ElementalMastery: number;
     LevelEXP: unknown;
     StatsModifier: {
-        HP: { string: number };
-        ATK: { string: number };
-        DEF: { string: number };
+        HP: { [key: string]: number };
+        ATK: { [key: string]: number };
+        DEF: { [key: string]: number };
         Ascension: Array<{
-            [key in `FIGHT_PROP_${AttributeName}`]: number;
+            [key in
+                | `FIGHT_PROP_${AttributeName}`
+                | "FIGHT_PROP_BASE_HP"
+                | "FIGHT_PROP_BASE_ATTACK"
+                | "FIGHT_PROP_BASE_DEFENSE"]: number;
         }>;
         PropGrowCurves: unknown;
     };
