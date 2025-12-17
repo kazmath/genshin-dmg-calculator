@@ -5,7 +5,7 @@ import {
     HakushinCharacter,
     RangeNum,
 } from "./types";
-import { baseApiURL, normalize, takeUntil } from "./utils.js";
+import { $, baseApiURL, normalize, takeUntil } from "./utils.js";
 
 const characterSlots: [
     CharacterStats?,
@@ -17,6 +17,8 @@ const characterSlots: [
 main();
 
 function main() {
+    // Inject the version from package.json into the page
+    injectVersion();
     // $("#btn-start-calc")[0].addEventListener("click", inputAndCalc);
 }
 
@@ -1022,4 +1024,16 @@ function getEnemyStats() {
         resPyro: 0.1,
         resPhysical: 0.1,
     };
+}
+
+function injectVersion() {
+    const href = location.href;
+    fetch(`${href.substring(0, href.lastIndexOf("/"))}/package.json`)
+        .then((data) => data.json())
+        .then((data) => {
+            $("#package-version")[0].innerHTML = `v${data.version}`;
+        })
+        .catch(function () {
+            console.error("Error loading package.json");
+        });
 }
