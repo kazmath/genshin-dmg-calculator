@@ -29,6 +29,7 @@ export type Character = {
     name: string;
     rank: -1 | 4 | 5; // Special | 4-Star | 5-Star
     element: ElementName;
+    weaponType: WeaponType;
     baseHP: number;
     baseATK: number;
     baseDEF: number;
@@ -51,7 +52,7 @@ export type Character = {
     };
 };
 
-export type Weapon = {
+type WeaponBase = {
     id: string;
     level: RangeNum<1, 91>;
     rank: RangeNum<1, 6>;
@@ -59,8 +60,16 @@ export type Weapon = {
     type: WeaponType;
     baseAtk: number;
     mainStat?: [AttributeName, number];
-    passive: string;
+    passive: string[];
 };
+type WeaponGeneric = {
+    id: string;
+    rank: RangeNum<1, 6>;
+    name: string;
+    type: WeaponType;
+};
+
+export type Weapon = WeaponBase | WeaponGeneric;
 
 export type ArtifactSet = {
     id: string;

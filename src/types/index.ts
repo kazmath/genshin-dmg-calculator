@@ -21,25 +21,25 @@ export type Enemy = {
 };
 
 export interface CharacterStats extends Stats {
-    character: Character;
-    weapon: Weapon;
+    character?: Character;
+    weapon?: Weapon;
     artifacts: {
-        sets: ArtifactSet[];
-        mainStats: {
-            sands:
+        sets?: ArtifactSet[];
+        mainStats?: {
+            sands?:
                 | "HP"
                 | "ATK"
                 | "DEF"
                 | "EM" //
                 | "ER";
-            goblet:
+            goblet?:
                 | "HP"
                 | "ATK"
                 | "DEF"
                 | "EM"
                 | "DMG" //
                 | "Phys";
-            circlet:
+            circlet?:
                 | "HP"
                 | "ATK"
                 | "DEF"
@@ -48,7 +48,7 @@ export interface CharacterStats extends Stats {
                 | "CRIT DMG" //
                 | "Healing Bonus";
         };
-        subStats: {
+        subStats?: {
             HP_: RangeNum<0, 46>;
             HP: RangeNum<0, 46>;
             ATK_: RangeNum<0, 46>;
@@ -64,14 +64,20 @@ export interface CharacterStats extends Stats {
 }
 
 export type Stats = {
-    HP: number;
-    ATK: number;
-    DEF: number;
-    EM: number;
-    CritRate: number;
-    CritDMG: number;
-    ER: number;
-    HealingBonus: number;
-    DMGBonus: { [element in ElementName | "Physical"]: number };
-    RESShred: { [element in ElementName | "Physical"]: number };
+    BaseHP: number;
+    BaseATK: number;
+    BaseDEF: number;
+    HP_?: number;
+    HP?: number;
+    ATK_?: number;
+    ATK?: number;
+    DEF_?: number;
+    DEF?: number;
+    EM?: number;
+    CRITRate?: number;
+    CRITDMG?: number;
+    ER?: number;
+    HealingBonus?: number;
+    DMGBonus?: { [element in ElementName | "Physical"]?: number };
+    RESShred?: { [element in ElementName | "Physical"]?: number };
 };
